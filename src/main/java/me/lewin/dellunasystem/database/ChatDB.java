@@ -20,7 +20,7 @@ public class ChatDB {
     public static Map<String, String> colorMap = new HashMap<>();
 
     /** Village Member Map < VillageName , MemberList > **/
-    private static Map<String, ArrayList<Player>> villageMemberMap = new HashMap<>();
+    public static Map<String, ArrayList<Player>> villageMemberMap = new HashMap<>();
     public static void addVillageMemberMap(String village, Player player) {
         ArrayList<Player> memberList = new ArrayList<>();
         if (villageMemberMap.containsKey(village)) {

@@ -95,7 +95,7 @@ public class PartyChat4Gui implements Listener {
 
         Reference.PartyLOG(player.getName() + " 입장", "햇무리");
         Reference.LOG.info("[햇무리] " + player.getName() + " 입장");
-        String message = "§3[햇무리] §r" + player.getDisplayName() + " : §3 님이 파티채팅에 입장하셨습니다.";
+        String message = "§3[햇무리] " + player.getDisplayName() + "님이 파티채팅에 입장하셨습니다.";
         for (Player p : ChatDB.party4) {
             if (p.equals(player)) continue;
             p.sendMessage(message);
@@ -114,7 +114,7 @@ public class PartyChat4Gui implements Listener {
 
         Reference.PartyLOG(player.getName() + " 퇴장", "햇무리");
         Reference.LOG.info("[햇무리] " + player.getName() + " 퇴장");
-        String message = "§3[햇무리] §r" + player.getDisplayName() + " : §3 님이 파티채팅에 퇴장하셨습니다.";
+        String message = "§3[햇무리] " + player.getDisplayName() + "님이 파티채팅에 퇴장하셨습니다.";
         for (Player p : ChatDB.party4) {
             p.sendMessage(message);
         }

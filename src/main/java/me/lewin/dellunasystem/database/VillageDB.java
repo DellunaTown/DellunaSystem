@@ -75,23 +75,23 @@ public class VillageDB {
         saveDataFile(config, getVillageFile(toName));
     }
 
-    public static String getColor(String village, String color) {
+    public static String getColor(String village) {
         FileConfiguration config = getVillageConfig(village);
-        return config.getString("color" , color);
+        return config.getString("color");
     }
-    public static String getHeader(String village, String header) {
+    public static String getHeader(String village) {
         FileConfiguration config = getVillageConfig(village);
         return config.getString("header");
     }
-    public static String getSubheader(String village, String subheader) {
+    public static String getSubheader(String village) {
         FileConfiguration config = getVillageConfig(village);
         return config.getString("subheader");
     }
-    public static ArrayList getMember(String village, String player) {
+    public static ArrayList getMember(String village) {
         FileConfiguration config = getVillageConfig(village);
         return (ArrayList) config.get("member");
     }
-    public static ArrayList getRecord(String village, String record) {
+    public static ArrayList getRecord(String village) {
         FileConfiguration config = getVillageConfig(village);
         return (ArrayList) config.get("record");
     }
@@ -100,11 +100,19 @@ public class VillageDB {
         File file = getVillageFile(villageName);
         file.delete();
     }
-    public static File[] getFiles() {
+    public static ArrayList<String> getVillages() {
+        ArrayList <String> list = new ArrayList<>();
+        if (getVillageFiles() == null) return list;
+        for (File file : getVillageFiles()) {
+            list.add(file.getName().substring(0, file.getName().length() - 4));
+        }
+        return list;
+    }
+
+    private static File[] getVillageFiles() {
 
         return new File(Reference.plugin.getDataFolder() + "\\village").listFiles();
     }
-
     private static File getVillageFile(String villageName) {
         return new File(Reference.plugin.getDataFolder() + "\\village", villageName + ".dat");
     }

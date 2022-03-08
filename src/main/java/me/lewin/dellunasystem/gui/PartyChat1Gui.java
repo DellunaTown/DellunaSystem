@@ -97,7 +97,7 @@ public class PartyChat1Gui implements Listener {
 
         Reference.PartyLOG(player.getName() + " 입장", "조각달");
         Reference.LOG.info("[조각달] " + player.getName() + " 입장");
-        String message = "§3[조각달] §r" + player.getDisplayName() + " : §3 님이 파티채팅에 입장하셨습니다.";
+        String message = "§3[조각달] " + player.getDisplayName() + "님이 파티채팅에 입장하셨습니다.";
         for (Player p : ChatDB.party1) {
             if (p.equals(player)) continue;
             p.sendMessage(message);
@@ -116,7 +116,7 @@ public class PartyChat1Gui implements Listener {
 
         Reference.PartyLOG(player.getName() + " 퇴장", "조각달");
         Reference.LOG.info("[조각달] " + player.getName() + " 퇴장");
-        String message = "§3[조각달] §r" + player.getDisplayName() + " : §3 님이 파티채팅에 퇴장하셨습니다.";
+        String message = "§3[조각달] " + player.getDisplayName() + "님이 파티채팅에 퇴장하셨습니다.";
         for (Player p : ChatDB.party1) {
             p.sendMessage(message);
         }
