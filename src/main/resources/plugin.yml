@@ -2,6 +2,16 @@ name: DellunaSystem
 version: ${project.version}
 main: me.lewin.dellunasystem.Main
 api-version: 1.18
+depend:
+  - DiscordSRV
 commands:
   c:
+    aliases:
+      - 채팅
   dc:
+    aliases:
+      - 파티
+  village:
+    aliases:
+      - 마을
+  vacation:

@@ -47,7 +47,25 @@ public class WhitelistDB {
         saveDataFile(config, getWhitelistSettingFile());
     }
 
-    private static File getWhitelistSettingFile() {
+    public static Integer getLimit() {
+        FileConfiguration config = getWhitelistSettingConfig();
+        return config.getInt("limit");
+    }
+    public static Boolean getBool() {
+        FileConfiguration config = getWhitelistSettingConfig();
+        return config.getBoolean("bool");
+    }
+    public static ArrayList<String> getVacations() {
+        FileConfiguration config = getWhitelistSettingConfig();
+        return (ArrayList<String>) config.get("vacation");
+    }
+    public static Boolean exists(String uuid) {
+        FileConfiguration config = getWhitelistSettingConfig();
+        ArrayList<String> list = (ArrayList<String>) config.get("vacation");
+        return list.contains(uuid);
+    }
+
+    public static File getWhitelistSettingFile() {
         return new File(Reference.plugin.getDataFolder() + "\\whitelist", "config.dat");
     }
     private static FileConfiguration getWhitelistSettingConfig() {

@@ -18,10 +18,6 @@ public class PlayerJoinEvent implements Listener {
 
         ChatDB.playerVillageMap.put(player, PlayerDB.getVillage(uuid));
         ChatDB.addVillageMemberMap(PlayerDB.getVillage(uuid), player);
-
-        if (PlayerDB.getVillage(uuid).equals("델루나") && PlayerDB.getChatmode(uuid) == 1){
-            PlayerDB.setChatmode(uuid, 0);
-        }
         ChatDB.playerChatmodeMap.put(player, PlayerDB.getChatmode(uuid));
 
         if (player.isOp()) {

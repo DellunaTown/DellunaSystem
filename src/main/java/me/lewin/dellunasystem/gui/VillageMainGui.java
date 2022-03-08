@@ -1,5 +1,7 @@
 package me.lewin.dellunasystem.gui;
 
+import me.lewin.dellunasystem.Reference;
+import me.lewin.dellunasystem.database.ChatDB;
 import me.lewin.dellunasystem.database.PlayerDB;
 import me.lewin.dellunasystem.database.VillageDB;
 import org.bukkit.Bukkit;
@@ -7,6 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -16,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class VillageMainGui {
+public class VillageMainGui implements Listener {
     public static Inventory get(String village, Player player) {
-        Inventory inv = Bukkit.getServer().createInventory(null, 18, "§f\uF808ꢍ");
+        Inventory inv = Bukkit.getServer().createInventory(null, 54, "§f\uF808ꢑ");
 
         inv.setItem(1, homeIcon(village));
         inv.setItem(3, villageChatIcon());
@@ -99,24 +103,59 @@ public class VillageMainGui {
 
     @EventHandler
     private void onClick(InventoryClickEvent event) {
-        if (event.getView().getTitle().equals("§f\uF808ꢍ")) {
+        if (event.getView().getTitle().equals("§f\uF808ꢑ")) {
             event.setCancelled(true);
 
+            if (event.getClickedInventory() == null) return;
+            if (event.getClickedInventory() == event.getView().getBottomInventory()) return;
+
             Player player = (Player) event.getWhoClicked();
+            String village = event.getClickedInventory().getItem(1).getItemMeta().getDisplayName().replaceAll("§[a-zA-Z]", "").replaceAll("§[0-9]","");
 
             switch (event.getSlot()) {
-                case 1:
-                    player.openInventory(PartyChat1Gui.get());
-                    break;
                 case 3:
-                    player.openInventory(PartyChat2Gui.get());
-                    break;
+                    player.sendMessage(Reference.channel_1);
+                    ChatDB.playerChatmodeMap.put(player, 1);
+                    player.closeInventory();
+                    return;
                 case 5:
-                    player.openInventory(PartyChat3Gui.get());
-                    break;
+                    player.openInventory(VillageRecordGui.get(village, 1));
+                    return;
                 case 7:
-                    player.openInventory(PartyChat4Gui.get());
-                    break;
+                    if (player.isOp() || PlayerDB.getHeader(player.getUniqueId().toString())) {
+                        player.openInventory(VillageInviteGui.get(village, 1));
+                    } else {
+                        player.closeInventory();
+                        player.sendMessage(Reference.FAIL + "이장이나 부이장이 아닙니다.");
+                    }
+                    return;
+                case 53:
+                    if (event.getClick().equals(ClickType.SHIFT_LEFT)) {
+                        player.openInventory(VillageConfirmGui.get(village, player.getUniqueId().toString(), "5"));
+                    }
+                    return;
+            }
+
+            if (event.getCurrentItem() == null) return;
+            if (event.getCurrentItem().getType() == Material.PLAYER_HEAD) {
+                String uuid = ((SkullMeta) event.getCurrentItem().getItemMeta()).getOwningPlayer().getUniqueId().toString();
+                switch (event.getClick()) {
+                    case SHIFT_LEFT:
+                        if (player.isOp() || PlayerDB.getHeader(player.getUniqueId().toString())) {
+                            player.openInventory(VillageConfirmGui.get(village, uuid, "1"));
+                        }
+                        return;
+                    case SHIFT_RIGHT:
+                        if (player.isOp() || PlayerDB.getHeader(player.getUniqueId().toString())) {
+                            player.openInventory(VillageConfirmGui.get(village, uuid, "2"));
+                        }
+                        return;
+                    case MIDDLE:
+                        if (player.isOp() || PlayerDB.getHeader(player.getUniqueId().toString())) {
+                            player.openInventory(VillageConfirmGui.get(village, uuid, "3"));
+                        }
+                        return;
+                }
             }
         }
     }

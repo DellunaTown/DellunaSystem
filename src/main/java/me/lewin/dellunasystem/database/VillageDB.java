@@ -55,17 +55,17 @@ public class VillageDB {
         config.set("member" , list);
         saveDataFile(config, getVillageFile(village));
     }
-    public static void addRecord(String village, String record) {
+    public static void addRecord(String village, ItemStack record) {
         FileConfiguration config = getVillageConfig(village);
-        ArrayList<String> list = (ArrayList<String>) config.get("member");
+        ArrayList<ItemStack> list = (ArrayList<ItemStack>) config.get("record");
         list.add(record);
         config.set("record" , list);
         saveDataFile(config, getVillageFile(village));
     }
-    public static void removeRecord(String village, Integer index) {
+    public static void removeRecord(String village) {
         FileConfiguration config = getVillageConfig(village);
-        ArrayList<String> list = (ArrayList<String>) config.get("member");
-        list.remove(index);
+        ArrayList<ItemStack> list = (ArrayList<ItemStack>) config.get("record");
+        list.remove(list.size()-1);
         config.set("record" , list);
         saveDataFile(config, getVillageFile(village));
     }
@@ -94,6 +94,10 @@ public class VillageDB {
     public static ArrayList getRecord(String village) {
         FileConfiguration config = getVillageConfig(village);
         return (ArrayList) config.get("record");
+    }
+    public static Boolean exists(String village) {
+
+        return getVillageFile(village).exists();
     }
 
     public static void removeVillageFile(String villageName) {

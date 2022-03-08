@@ -88,7 +88,7 @@ public class PartyChat4Gui implements Listener {
             return;
         }
 
-        ChatDB.playerPartyMap.put(player, 3);
+        ChatDB.playerPartyMap.put(player, 4);
         ChatDB.playerChatmodeMap.put(player, 2);
         ChatDB.party4.add(player);
         player.sendMessage(Reference.SUCCESS + "햇무리 채널에 접속하셨습니다.");
