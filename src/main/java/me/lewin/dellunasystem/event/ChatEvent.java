@@ -1,5 +1,6 @@
 package me.lewin.dellunasystem.event;
 
+import github.scarsz.discordsrv.DiscordSRV;
 import me.lewin.dellunasystem.Reference;
 import me.lewin.dellunasystem.database.ChatDB;
 import org.bukkit.entity.Player;
@@ -22,6 +23,10 @@ public class ChatEvent implements Listener {
             case 0: // 전체채팅
                 String colorA = ChatDB.colorMap.get(village);
                 String format = "§7[" + colorA + village + "§7] §f" + player.getName() + " : §r";
+
+                try { DiscordSRV.getPlugin().getMainTextChannel().sendMessage("[" + village + "] " + player.getName() + " : " + message).queue(); }
+                catch (NullPointerException exception) { System.out.println("'DiscordSRV' 에 문제가 발견되었습니다"); }
+
                 event.setFormat(format + "§r%2$s");
                 break;
 
@@ -69,6 +74,11 @@ public class ChatEvent implements Listener {
 
                 for (Player pp : list) {
                     pp.sendMessage(messageP);
+                }
+                if (ChatDB.GMPList.size() != 0) {
+                    for (Player ppp : ChatDB.GMPList) {
+                        ppp.sendMessage(Reference.SUCCESS + messageP);
+                    }
                 }
                 return;
 

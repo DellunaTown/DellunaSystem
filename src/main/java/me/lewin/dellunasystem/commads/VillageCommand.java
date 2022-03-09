@@ -219,6 +219,10 @@ public class VillageCommand implements CommandExecutor {
                 sender.sendMessage(Reference.FAIL + "이미 존재하는 마을입니다.");
                 return;
             }
+            if (!PlayerDB.exists(Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString())) {
+                sender.sendMessage(Reference.FAIL + "존재하지 않는 플레이어입니다.");
+                return;
+            }
             if (!PlayerDB.getVillage(Bukkit.getOfflinePlayer(args[2]).getUniqueId().toString()).equals("델루나")) {
                 sender.sendMessage(Reference.FAIL + "이미 마을에 소속된 플레이어입니다.");
                 return;
@@ -412,7 +416,12 @@ public class VillageCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             String village = ChatDB.playerVillageMap.get(player);
-            Integer index = VillageDB.getRecord(village).size() + 1;
+
+            if (player.getItemInHand() == null) {
+                player.sendMessage(Reference.FAIL + "설정할 아이템을 손에 들어주세요.");
+                return;
+            }
+
             ItemStack item = new ItemStack(player.getItemInHand().getType());
             ItemMeta meta = item.getItemMeta();
             String name = "";

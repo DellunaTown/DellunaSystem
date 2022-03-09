@@ -104,7 +104,7 @@ public class VillageInviteGui implements Listener {
             if (event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getType() == Material.PLAYER_HEAD) {
                     String uuid = ((SkullMeta) event.getCurrentItem().getItemMeta()).getOwningPlayer().getUniqueId().toString();
-                    //player.openInventory(confirmInventory(village, uuid, "4"));
+                    player.openInventory(VillageConfirmGui.get(village, uuid, "4"));
                 }
             }
         }

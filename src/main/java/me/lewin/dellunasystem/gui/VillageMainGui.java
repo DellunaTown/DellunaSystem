@@ -36,7 +36,7 @@ public class VillageMainGui implements Listener {
             OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
             ItemStack item = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta meta = (SkullMeta) item.getItemMeta();
-            meta.setOwningPlayer(player);
+            meta.setOwningPlayer(p);
             List<String> lore = new ArrayList<>();
             if (p.isOnline()) {
                 meta.setDisplayName("§a" + p.getName());

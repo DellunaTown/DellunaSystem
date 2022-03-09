@@ -14,6 +14,16 @@ public class ChatCommand implements CommandExecutor {
             String village = ChatDB.playerVillageMap.get(player);
             Integer chatmode = ChatDB.playerChatmodeMap.get(player);
 
+            if (args.length > 0 && args[0].equals("p") && player.isOp()) {
+                if (ChatDB.GMPList.contains(player)) {
+                    ChatDB.GMPList.remove(player);
+                }
+                else {
+                    ChatDB.GMPList.add(player);
+                }
+                return true;
+            }
+
             switch (chatmode) {
                 case 0:
                     if (village.equals("델루나")) {

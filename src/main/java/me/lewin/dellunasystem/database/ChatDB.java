@@ -51,4 +51,7 @@ public class ChatDB {
 
     /** GM List **/
     public static ArrayList<Player> GMList = new ArrayList<>();
+
+    /** GM List **/
+    public static ArrayList<Player> GMPList = new ArrayList<>();
 }
