@@ -102,7 +102,7 @@ public class PartyChat4Gui implements Listener {
         }
     }
     private static void leave(Player player) {
-        if (!ChatDB.playerPartyMap.containsKey(player) || ChatDB.playerPartyMap.get(player) != 3) {
+        if (!ChatDB.playerPartyMap.containsKey(player) || ChatDB.playerPartyMap.get(player) != 4) {
             player.sendMessage(Reference.FAIL + "햇무리 채널에 접속중이지 않습니다.");
             return;
         }

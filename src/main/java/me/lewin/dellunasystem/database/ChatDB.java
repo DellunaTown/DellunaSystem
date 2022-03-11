@@ -34,7 +34,7 @@ public class ChatDB {
             villageMemberMap.remove(village);
         }
         else {
-            ArrayList<Player> memberList = new ArrayList<>();
+            ArrayList<Player> memberList = villageMemberMap.get(village);
             memberList.remove(player);
             villageMemberMap.put(village, memberList);
         }

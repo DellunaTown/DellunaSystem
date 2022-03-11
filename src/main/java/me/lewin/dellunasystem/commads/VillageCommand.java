@@ -379,6 +379,10 @@ public class VillageCommand implements CommandExecutor {
                 sender.sendMessage(Reference.FAIL + "잘못된 입력입니다.");
                 return;
             }
+            if (!PlayerDB.exists(args[1])) {
+                sender.sendMessage(Reference.FAIL + "플레이어를 찾을 수 없습니다.");
+                return;
+            }
             if (Bukkit.getOfflinePlayer(args[1]) == null) {
                 sender.sendMessage(Reference.FAIL + "플레이어를 찾을 수 없습니다.");
                 return;
@@ -417,13 +421,13 @@ public class VillageCommand implements CommandExecutor {
             Player player = (Player) sender;
             String village = ChatDB.playerVillageMap.get(player);
 
-            if (player.getItemInHand() == null) {
+            if (player.getItemInHand() == null || player.getItemInHand().getType() == null || player.getItemInHand().getItemMeta() == null) {
                 player.sendMessage(Reference.FAIL + "설정할 아이템을 손에 들어주세요.");
                 return;
             }
 
             ItemStack item = new ItemStack(player.getItemInHand().getType());
-            ItemMeta meta = item.getItemMeta();
+            ItemMeta meta = player.getItemInHand().getItemMeta();
             String name = "";
             Integer count = 0;
             for (String string : args) {

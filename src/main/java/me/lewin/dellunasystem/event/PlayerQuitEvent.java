@@ -22,8 +22,8 @@ public class PlayerQuitEvent implements Listener {
             ChatDB.playerInviteMap.remove(player);
         }
 
+        ChatDB.removeVillageMemberMap(ChatDB.playerVillageMap.get(player), player);
         ChatDB.playerVillageMap.remove(player);
-        ChatDB.removeVillageMemberMap(PlayerDB.getVillage(uuid), player);
 
         if (ChatDB.playerPartyMap.containsKey(player)) {
             switch (ChatDB.playerPartyMap.get(player)) {
