@@ -16,6 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class VillageCommand implements CommandExecutor {
     @Override
@@ -379,11 +380,15 @@ public class VillageCommand implements CommandExecutor {
                 sender.sendMessage(Reference.FAIL + "잘못된 입력입니다.");
                 return;
             }
-            if (!PlayerDB.exists(args[1])) {
-                sender.sendMessage(Reference.FAIL + "플레이어를 찾을 수 없습니다.");
+            if (!Pattern.matches("^[0-9a-zA-Z]*$", args[1])) {
+                sender.sendMessage(Reference.FAIL + "플레이어 이름만 검색이 가능합니다.");
                 return;
             }
             if (Bukkit.getOfflinePlayer(args[1]) == null) {
+                sender.sendMessage(Reference.FAIL + "플레이어를 찾을 수 없습니다.");
+                return;
+            }
+            if (!PlayerDB.exists(Bukkit.getOfflinePlayer(args[1]).getUniqueId().toString())) {
                 sender.sendMessage(Reference.FAIL + "플레이어를 찾을 수 없습니다.");
                 return;
             }
