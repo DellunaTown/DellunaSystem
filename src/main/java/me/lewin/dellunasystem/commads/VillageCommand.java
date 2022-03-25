@@ -380,7 +380,7 @@ public class VillageCommand implements CommandExecutor {
                 sender.sendMessage(Reference.FAIL + "잘못된 입력입니다.");
                 return;
             }
-            if (!Pattern.matches("^[0-9a-zA-Z]*$", args[1])) {
+            if (Pattern.matches("\\W*$", args[1])) {
                 sender.sendMessage(Reference.FAIL + "플레이어 이름만 검색이 가능합니다.");
                 return;
             }
