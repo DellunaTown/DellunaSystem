@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.time.LocalDate;
+
 public class PlayerQuitEvent implements Listener {
     @EventHandler
     private void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
@@ -17,6 +19,7 @@ public class PlayerQuitEvent implements Listener {
             ChatDB.playerChatmodeMap.put(player, 0);
         }
         PlayerDB.setChatmode(uuid, ChatDB.playerChatmodeMap.get(player));
+        PlayerDB.setOnline(uuid, LocalDate.now().toString());
 
         if (ChatDB.playerInviteMap.containsKey(player)) {
             ChatDB.playerInviteMap.remove(player);

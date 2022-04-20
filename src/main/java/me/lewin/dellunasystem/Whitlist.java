@@ -28,6 +28,7 @@ public class Whitlist {
             long lastPlayed = player.getLastPlayed();
             long limit = TimeUnit.DAYS.toMillis(limitDay);
 
+            if (player.getLastPlayed() == 0) continue;
             if (currentTime - lastPlayed > limit && !vacationList.contains(player.getUniqueId().toString())) {
                 logList.add(player.getUniqueId().toString());
                 player.setWhitelisted(false);
